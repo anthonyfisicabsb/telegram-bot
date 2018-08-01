@@ -1,30 +1,14 @@
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.abilitybots.api.bot.AbilityBot;
 
-public class BhabakaBot extends TelegramLongPollingBot {
-    public void onUpdateReceived(Update update) {
-        // We check if the update has a message and the message has a text
-        if(update.hasMessage() && update.getMessage().hasText()) {
-            var message = new SendMessage() // Create SendMessage object
-                    .setChatId(update.getMessage().getChatId())
-                    .setText(update.getMessage().getText());
+public class BhabakaBot extends AbilityBot {
+    public static final String BOT_TOKEN = "671350952:AAEE-HLESD7QuesAebCWthFZFWLobh4o7VQ";
+    public static final String BOT_USERNAME = "tony_bot";
 
-            try{
-                execute(message); // Call method to send the message
-            } catch(TelegramApiException e) {
-                e.printStackTrace();
-            }
-        }
+    public BhabakaBot() {
+        super(BOT_TOKEN, BOT_USERNAME);
     }
 
-    public String getBotUsername() {
-        return "tony-bot";
+    public int creatorId() {
+        return 123456789;
     }
-
-    public String getBotToken() {
-        return "671350952:AAEE-HLESD7QuesAebCWthFZFWLobh4o7VQ";
-    }
-
 }
