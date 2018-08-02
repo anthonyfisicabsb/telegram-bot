@@ -1,3 +1,4 @@
+import org.jetbrains.annotations.NotNull;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Locality;
@@ -25,5 +26,32 @@ public class BhabakaBot extends AbilityBot {
                 .privacy(Privacy.PUBLIC)
                 .action(ctx -> silent.send("hello world!", ctx.chatId()))
                 .build();
+    }
+
+    // adicionado a habilidade do bot de reverter uma palavra
+    public Ability revertWord() {
+        return Ability
+                .builder()
+                .name("revert")
+                .info("revert the string")
+                .locality(Locality.ALL)
+                .input(1)
+                .privacy(Privacy.PUBLIC)
+                .action(ctx -> silent.send(revertString(ctx.firstArg()), ctx.chatId()))
+                .build();
+    }
+
+    private String revertString(@NotNull String word) {
+        var caracteres = word.toCharArray();
+
+        var array_len = caracteres.length;
+
+        for(int i = 0; i < array_len/2; i++) {
+            char aux = caracteres[i];
+            caracteres[i] = caracteres[array_len - (1 + i)];
+            caracteres[array_len - (1 + i)] = aux;
+        }
+
+        return new String(caracteres);
     }
 }
