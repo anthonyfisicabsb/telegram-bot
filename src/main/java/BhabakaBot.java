@@ -4,6 +4,8 @@ import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Locality;
 import org.telegram.abilitybots.api.objects.Privacy;
 
+import java.util.Map;
+
 public class BhabakaBot extends AbilityBot {
     public static final String BOT_TOKEN = "671350952:AAEE-HLESD7QuesAebCWthFZFWLobh4o7VQ";
     public static final String BOT_USERNAME = "tony_bot";
@@ -41,6 +43,31 @@ public class BhabakaBot extends AbilityBot {
                 .build();
     }
 
+    // habilidade de retornar a capital do estado indicado pela sigla
+    public Ability giveCapital() {
+        return Ability
+                .builder()
+                .name("capitalState")
+                .info("gives the capital of state")
+                .locality(Locality.ALL)
+                .input(1)
+                .privacy(Privacy.PUBLIC)
+                .action(ctx -> silent.send(capitalOfState(ctx.firstArg()),ctx.chatId()))
+                .build();
+    }
+
+    // método que retorna a capital do estado selecionado
+    @NotNull
+    private String capitalOfState(String word) {
+        Map<String, String> mapaCidadeCapital = new CapitalMap().mapaCapitaisBr();
+
+        if(!mapaCidadeCapital.containsKey(word.toUpperCase()))
+            return "Sigla de estado não reconhecida!";
+
+        return "A capital deste Estado é " + mapaCidadeCapital.get(word);
+    }
+
+    // método para reverter a string inserida
     private String revertString(@NotNull String word) {
         var caracteres = word.toCharArray();
 
