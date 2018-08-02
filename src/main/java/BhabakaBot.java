@@ -47,7 +47,7 @@ public class BhabakaBot extends AbilityBot {
     public Ability giveCapital() {
         return Ability
                 .builder()
-                .name("capitalState")
+                .name("capital")
                 .info("gives the capital of state")
                 .locality(Locality.ALL)
                 .input(1)
