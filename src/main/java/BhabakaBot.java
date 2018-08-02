@@ -46,7 +46,7 @@ public class BhabakaBot extends AbilityBot {
 
         var array_len = caracteres.length;
 
-        for(int i = 0; i < array_len/2; i++) {
+        for (int i = 0; i < array_len / 2; i++) {
             char aux = caracteres[i];
             caracteres[i] = caracteres[array_len - (1 + i)];
             caracteres[array_len - (1 + i)] = aux;
