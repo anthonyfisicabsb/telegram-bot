@@ -4,6 +4,7 @@ import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Locality;
 import org.telegram.abilitybots.api.objects.Privacy;
 
+import java.text.ParseException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -57,6 +58,20 @@ public class BhabakaBot extends AbilityBot {
                 .build();
     }
 
+    // método para reverter a string inserida
+    private String revertString(@NotNull String word) {
+        var caracteres = word.toCharArray();
+
+        var array_len = caracteres.length;
+
+        for (int i = 0; i < array_len / 2; i++) {
+            char aux = caracteres[i];
+            caracteres[i] = caracteres[array_len - (1 + i)];
+            caracteres[array_len - (1 + i)] = aux;
+        }
+
+        return new String(caracteres);
+    }
     // habilidade de retornar a capital do estado indicado pela sigla
     public Ability giveCapital() {
         return Ability
@@ -81,18 +96,44 @@ public class BhabakaBot extends AbilityBot {
         return "A capital deste Estado é " + mapaCidadeCapital.get(word);
     }
 
-    // método para reverter a string inserida
-    private String revertString(@NotNull String word) {
-        var caracteres = word.toCharArray();
+    // habilidade para retornar as raizes de uma equação de segundo grau
+    public Ability giveRoots() {
+        return Ability
+                .builder()
+                .name("roots")
+                .info("return roots of a equation")
+                .locality(Locality.ALL)
+                .input(3)
+                .privacy(Privacy.PUBLIC)
+                .action(ctx -> silent.send(roots2Degree(ctx.firstArg(), ctx.secondArg(), ctx.thirdArg()), ctx.chatId()))
+                .build();
+    }
 
-        var array_len = caracteres.length;
+    private String roots2Degree(String a, String b, String c) {
+        try{
+            double c1 = Double.parseDouble(a);
+            double c2 = Double.parseDouble(b);
+            double c3 = Double.parseDouble(c);
 
-        for (int i = 0; i < array_len / 2; i++) {
-            char aux = caracteres[i];
-            caracteres[i] = caracteres[array_len - (1 + i)];
-            caracteres[array_len - (1 + i)] = aux;
+            // conferindo se a equação realmente é de segundo grau
+            if(c1 == 0.0)
+                return "'a' deve ser diferente de 0.0";
+
+            double delta = c2*c2 - 4*c1*c3;
+
+            if(delta >= 0) {
+                double root1 = (-c2 + Math.sqrt(delta)) / 2.0*c1;
+                double root2 = (-c2 - Math.sqrt(delta)) / 2.0*c1;
+
+                return String.format("As raizes sao %f e %f", root1, root2);
+            } else {
+                double real = -c2/2.0*c1;
+                double imag = Math.sqrt(-delta)/2.0*c1;
+
+                return String.format("As raizes sao %f + i%f e %f - i%f", real, imag, real, imag);
+            }
+        }catch (NumberFormatException e) {
+            return "Insira somente numeros, como 2.0, 3.45 e etc.";
         }
-
-        return new String(caracteres);
     }
 }
