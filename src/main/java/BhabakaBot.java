@@ -5,10 +5,24 @@ import org.telegram.abilitybots.api.objects.Locality;
 import org.telegram.abilitybots.api.objects.Privacy;
 
 import java.util.Map;
+import java.util.Scanner;
 
 public class BhabakaBot extends AbilityBot {
-    public static final String BOT_TOKEN = "671350952:AAEE-HLESD7QuesAebCWthFZFWLobh4o7VQ";
-    public static final String BOT_USERNAME = "tony_bot";
+    private static String BOT_TOKEN;
+    private static String BOT_USERNAME;
+
+    // bloco para inicializar o token e o nome do bot
+    static {
+        var leitor = new Scanner(System.in);
+
+        System.out.print("Digite o token do bot e aperte enter: ");
+        BOT_TOKEN = leitor.next();
+
+        System.out.print("Digite o nome do bot e digite: ");
+        BOT_USERNAME = leitor.next();
+
+        leitor.close();
+    }
 
     public BhabakaBot() {
         super(BOT_TOKEN, BOT_USERNAME);
