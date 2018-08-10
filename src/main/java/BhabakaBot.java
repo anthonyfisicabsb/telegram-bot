@@ -136,4 +136,16 @@ public class BhabakaBot extends AbilityBot {
             return "Insira somente numeros, como 2.0, 3.45 e etc.";
         }
     }
+
+    public Ability rollDice() {
+        return Ability
+                .builder()
+                .name("dado")
+                .info("rola um dado")
+                .locality(Locality.ALL)
+                .input(0)
+                .privacy(Privacy.PUBLIC)
+                .action(ctx -> silent.send(new Dado().rolarDado(), ctx.chatId()))
+                .build();
+    }
 }
