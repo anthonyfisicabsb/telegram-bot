@@ -1,33 +1,33 @@
 public class Dado {
-    private String resposta1 = "-----" +
-                               "|   |" +
-                               "| * |" +
-                               "|   |" +
+    private String resposta1 = "-----\n" +
+                               "|   |\n" +
+                               "| * |\n" +
+                               "|   |\n" +
                                "-----";
-    private String resposta2 = "-----" +
-                               "|   |" +
-                               "|* *|" +
-                               "|   |" +
+    private String resposta2 = "-----\n" +
+                               "|   |\n" +
+                               "|* *|\n" +
+                               "|   |\n" +
                                "-----";
-    private String resposta3 = "-----" +
-                               "| * |" +
-                               "| * |" +
-                               "| * |" +
+    private String resposta3 = "-----\n" +
+                               "| * |\n" +
+                               "| * |\n" +
+                               "| * |\n" +
                                "-----";
     private String resposta4 = "-----" +
-                               "| * |" +
-                               "|* *|" +
-                               "| * |" +
+                               "| * |\n" +
+                               "|* *|\n" +
+                               "| * |\n" +
                                "-----";
-    private String resposta5 = "-----" +
-                               "| * |" +
-                               "|***|" +
-                               "| * |" +
+    private String resposta5 = "-----\n" +
+                               "| * |\n" +
+                               "|***|\n" +
+                               "| * |\n" +
                                "-----";
-    private String resposta6 = "-----" +
-                               "|* *|" +
-                               "|* *|" +
-                               "|* *|" +
+    private String resposta6 = "-----\n" +
+                               "|* *|\n" +
+                               "|* *|\n" +
+                               "|* *|\n" +
                                "-----";
 
     public String rolarDado() {
