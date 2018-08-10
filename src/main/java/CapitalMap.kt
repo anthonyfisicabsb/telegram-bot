@@ -1,4 +1,4 @@
-import java.util.HashMap
+import java.util.HashMap;
 
 // classe com método que retorna mapa de capitais e seus respectivos estados
 class CapitalMap {

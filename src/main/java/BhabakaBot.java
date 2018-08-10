@@ -89,8 +89,9 @@ public class BhabakaBot extends AbilityBot {
     @NotNull
     private String capitalOfState(String word) {
         Map<String, String> mapaCidadeCapital = new CapitalMap().mapaCapitaisBr();
+        word = word.toUpperCase();
 
-        if (!mapaCidadeCapital.containsKey(word.toUpperCase()))
+        if (!mapaCidadeCapital.containsKey(word))
             return "Sigla de estado não reconhecida!";
 
         return "A capital deste Estado é " + mapaCidadeCapital.get(word);
