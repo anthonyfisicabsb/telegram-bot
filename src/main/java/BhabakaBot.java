@@ -4,7 +4,6 @@ import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Locality;
 import org.telegram.abilitybots.api.objects.Privacy;
 
-import java.text.ParseException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -72,6 +71,7 @@ public class BhabakaBot extends AbilityBot {
 
         return new String(caracteres);
     }
+
     // habilidade de retornar a capital do estado indicado pela sigla
     public Ability giveCapital() {
         return Ability
@@ -81,7 +81,7 @@ public class BhabakaBot extends AbilityBot {
                 .locality(Locality.ALL)
                 .input(1)
                 .privacy(Privacy.PUBLIC)
-                .action(ctx -> silent.send(capitalOfState(ctx.firstArg()),ctx.chatId()))
+                .action(ctx -> silent.send(capitalOfState(ctx.firstArg()), ctx.chatId()))
                 .build();
     }
 
@@ -90,7 +90,7 @@ public class BhabakaBot extends AbilityBot {
     private String capitalOfState(String word) {
         Map<String, String> mapaCidadeCapital = new CapitalMap().mapaCapitaisBr();
 
-        if(!mapaCidadeCapital.containsKey(word.toUpperCase()))
+        if (!mapaCidadeCapital.containsKey(word.toUpperCase()))
             return "Sigla de estado não reconhecida!";
 
         return "A capital deste Estado é " + mapaCidadeCapital.get(word);
@@ -110,29 +110,29 @@ public class BhabakaBot extends AbilityBot {
     }
 
     private String roots2Degree(String a, String b, String c) {
-        try{
-            double c1 = Double.parseDouble(a);
-            double c2 = Double.parseDouble(b);
-            double c3 = Double.parseDouble(c);
+        try {
+            var c1 = Double.parseDouble(a);
+            var c2 = Double.parseDouble(b);
+            var c3 = Double.parseDouble(c);
 
             // conferindo se a equação realmente é de segundo grau
-            if(c1 == 0.0)
+            if (c1 == 0.0)
                 return "'a' deve ser diferente de 0.0";
 
-            double delta = c2*c2 - 4*c1*c3;
+            double delta = c2 * c2 - 4 * c1 * c3;
 
-            if(delta >= 0) {
-                double root1 = (-c2 + Math.sqrt(delta)) / 2.0*c1;
-                double root2 = (-c2 - Math.sqrt(delta)) / 2.0*c1;
+            if (delta >= 0) {
+                double root1 = (-c2 + Math.sqrt(delta)) / 2.0 * c1;
+                double root2 = (-c2 - Math.sqrt(delta)) / 2.0 * c1;
 
                 return String.format("As raizes sao %f e %f", root1, root2);
             } else {
-                double real = -c2/2.0*c1;
-                double imag = Math.sqrt(-delta)/2.0*c1;
+                double real = -c2 / 2.0 * c1;
+                double imag = Math.sqrt(-delta) / 2.0 * c1;
 
                 return String.format("As raizes sao %f + i%f e %f - i%f", real, imag, real, imag);
             }
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return "Insira somente numeros, como 2.0, 3.45 e etc.";
         }
     }
