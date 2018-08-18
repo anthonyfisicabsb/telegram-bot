@@ -1,6 +1,7 @@
 import org.jetbrains.annotations.NotNull;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
+import org.telegram.abilitybots.api.objects.Flag;
 import org.telegram.abilitybots.api.objects.Locality;
 import org.telegram.abilitybots.api.objects.Privacy;
 
@@ -87,7 +88,7 @@ public class BhabakaBot extends AbilityBot {
 
     // método que retorna a capital do estado selecionado
     @NotNull
-    private String capitalOfState(String word) {
+    public String capitalOfState(String word) {
         Map<String, String> mapaCidadeCapital = new CapitalMap().mapaCapitaisBr();
         word = word.toUpperCase();
 
@@ -110,7 +111,7 @@ public class BhabakaBot extends AbilityBot {
                 .build();
     }
 
-    private String roots2Degree(String a, String b, String c) {
+    public String roots2Degree(String a, String b, String c) {
         try {
             var c1 = Double.parseDouble(a);
             var c2 = Double.parseDouble(b);
@@ -147,6 +148,19 @@ public class BhabakaBot extends AbilityBot {
                 .input(0)
                 .privacy(Privacy.PUBLIC)
                 .action(ctx -> silent.send(new Dado().rolarDado(), ctx.chatId()))
+                .build();
+    }
+
+    public Ability responderFoto() {
+        return Ability
+                .builder()
+                .name(DEFAULT)
+                .flag(Flag.PHOTO)
+                .privacy(Privacy.PUBLIC)
+                .locality(Locality.ALL)
+                .input(0)
+                .action(ctx -> silent.send("Vocês humanos sabem que bots não sabem dar palpites sobre " +
+                        "fotos não é?", ctx.chatId()))
                 .build();
     }
 }
