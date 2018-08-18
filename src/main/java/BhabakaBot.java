@@ -1,12 +1,14 @@
 import org.jetbrains.annotations.NotNull;
 import org.telegram.abilitybots.api.bot.AbilityBot;
-import org.telegram.abilitybots.api.objects.Ability;
-import org.telegram.abilitybots.api.objects.Flag;
-import org.telegram.abilitybots.api.objects.Locality;
-import org.telegram.abilitybots.api.objects.Privacy;
+import org.telegram.abilitybots.api.objects.*;
+import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
+
+import static org.telegram.abilitybots.api.util.AbilityUtils.getChatId;
 
 public class BhabakaBot extends AbilityBot {
     private static String BOT_TOKEN;
@@ -25,7 +27,7 @@ public class BhabakaBot extends AbilityBot {
         leitor.close();
     }
 
-    public BhabakaBot() {
+    BhabakaBot() {
         super(BOT_TOKEN, BOT_USERNAME);
     }
 
@@ -88,7 +90,7 @@ public class BhabakaBot extends AbilityBot {
 
     // método que retorna a capital do estado selecionado
     @NotNull
-    public String capitalOfState(String word) {
+    String capitalOfState(String word) {
         Map<String, String> mapaCidadeCapital = new CapitalMap().mapaCapitaisBr();
         word = word.toUpperCase();
 
@@ -111,7 +113,7 @@ public class BhabakaBot extends AbilityBot {
                 .build();
     }
 
-    public String roots2Degree(String a, String b, String c) {
+    private String roots2Degree(String a, String b, String c) {
         try {
             var c1 = Double.parseDouble(a);
             var c2 = Double.parseDouble(b);
@@ -162,5 +164,16 @@ public class BhabakaBot extends AbilityBot {
                 .action(ctx -> silent.send("Vocês humanos sabem que bots não sabem dar palpites sobre " +
                         "fotos não é?", ctx.chatId()))
                 .build();
+    }
+
+    public Reply interrogatorio() {
+        Consumer<Update> action = update -> {
+            silent.send("Para ser sincero eu não espero de você " +
+                    "mais do que edeucação... beijos sem paixão... cansei de cantar, essa música soa tão meio " +
+                    "robótica. Mudou uma mensagem? Então vamos lá, vai ser do balaco baco nossa " +
+                    "experiência juntos!", getChatId(update));
+        };
+
+        return Reply.of(action, Flag.EDITED_MESSAGE);
     }
 }
